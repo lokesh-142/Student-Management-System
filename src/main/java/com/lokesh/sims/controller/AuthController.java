@@ -1,5 +1,6 @@
 package com.lokesh.sims.controller;
 
+import com.lokesh.sims.entity.Student;
 import com.lokesh.sims.service.SimsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,26 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() { return "login"; }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("student", new Student());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerStudent(@ModelAttribute Student student, Model model) {
+        try {
+            Student saved = service.registerStudent(student);
+            model.addAttribute("success", "Registration successful. Your Student ID is " + saved.getSid() + ".");
+            model.addAttribute("student", new Student());
+            return "register";
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("error", ex.getMessage());
+            model.addAttribute("student", student);
+            return "register";
+        }
+    }
 
     @PostMapping("/login/student")
     public String studentLogin(@RequestParam String username, @RequestParam String password,
