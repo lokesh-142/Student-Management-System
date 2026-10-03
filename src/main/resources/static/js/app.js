@@ -1,0 +1,1 @@
+const input=document.getElementById('studentSearch');const table=document.getElementById('studentTable');if(input&&table){input.addEventListener('input',()=>{const q=input.value.toLowerCase();table.querySelectorAll('tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')})}
