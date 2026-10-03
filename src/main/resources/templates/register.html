@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIMS | Student Registration</title><link rel="stylesheet" href="/css/style.css"></head>
+<body class="login-page">
+<div class="register-shell">
+<div class="register-header"><a href="/login" class="back-link">← Back to login</a>
+<div class="brand big"><span class="brand-mark">S</span><div><strong>SIMS</strong><small>Student Information Management System</small></div></div>
+<h1>Create your student account</h1><p>Register once, then use your username and password to access your student dashboard.</p></div>
+<div class="register-card">
+<div th:if="${success}" class="success-alert" th:text="${success}"></div>
+<div th:if="${error}" class="alert" th:text="${error}"></div>
+<form method="post" action="/register"><div class="form-grid">
+<label>Full Name<input name="name" th:value="${student.name}" required></label>
+<label>Gender<select name="gender" required><option value="">Select gender</option><option value="Male" th:selected="${student.gender == 'Male'}">Male</option><option value="Female" th:selected="${student.gender == 'Female'}">Female</option><option value="Other" th:selected="${student.gender == 'Other'}">Other</option></select></label>
+<label>Date of Birth<input type="date" name="dob" th:value="${student.dob}"></label>
+<label>Father's Name<input name="fatherName" th:value="${student.fatherName}" required></label>
+<label>Mother's Name<input name="motherName" th:value="${student.motherName}" required></label>
+<label>Department<input name="department" th:value="${student.department}" placeholder="e.g. Information Technology" required></label>
+<label>Year<input type="number" name="year" min="1" max="6" th:value="${student.year}" required></label>
+<label>Phone<input name="phone" th:value="${student.phone}" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required></label>
+<label class="wide">Email<input type="email" name="email" th:value="${student.email}" required></label>
+<label class="wide">Address<textarea name="address" rows="3" required th:text="${student.address}"></textarea></label>
+<label>Username<input name="username" th:value="${student.username}" minlength="4" maxlength="80" required autocomplete="username"></label>
+<label>Password<input type="password" name="password" minlength="6" required autocomplete="new-password"></label>
+</div><button class="primary full" type="submit">Create Student Account <span>→</span></button></form>
+</div></div>
+</body></html>
